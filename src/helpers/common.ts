@@ -111,7 +111,7 @@ export const minusScaleGraph = (key: TNameFilter, scrolling?: 'top' | 'bottom') 
 }
 
 export const onWheel = (e: React.WheelEvent, key: TNameFilter) => {
-  if (e.altKey) {
+  if (e.altKey || e.ctrlKey) {
     const y = e.deltaY
     if (y > 0) plusScaleGraph(key)
     if (y < 0) minusScaleGraph(key)

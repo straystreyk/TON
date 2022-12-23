@@ -65,7 +65,7 @@ export const useGraphScale = (key: TNameFilter, ref?: React.Ref<any>) => {
       },
 
       onKeyDown: ({ event }) => {
-        if (event.altKey) {
+        if (event.ctrlKey || event.altKey) {
           hideShowScroll('hidden')
         }
       },
