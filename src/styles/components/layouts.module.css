@@ -1,0 +1,35 @@
+@import '../common/_variables.css';
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1240px;
+
+  @media (min-width: $desktopLargestScreen) {
+    &.offContainer {
+      max-width: unset;
+      margin: unset;
+    }
+  }
+
+  @media (max-width: $desktopMediumScreenMinus) {
+    max-width: 890px;
+  }
+
+  @media (max-width: $desktopSmallScreenMinus) {
+    max-width: 96vw;
+  }
+}
+
+.mainTitle {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  padding: 0 0.5rem;
+
+  @media (max-width: $mobileBigScreen) {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 2rem;
+  }
+}

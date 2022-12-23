@@ -1,0 +1,56 @@
+@import '../common/_variables.css';
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  & span.logoText {
+    margin-left: 0.75rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-2);
+
+    @media (max-width: $mobileBigScreen) {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.header {
+  padding: 1.9rem;
+  @media (max-width: $mobileBigScreen) {
+    padding: 1.9rem 0 1.9rem 0;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & .tonLink {
+    font-weight: 700;
+    font-size: 1.2rem;
+
+    & svg {
+      margin-left: 0.2rem;
+      transition: var(--transitionDuration) all var(--transitionFunc);
+      height: 12px;
+      width: 7px;
+
+      @media (max-width: $mobileBigScreen) {
+        font-size: 1.8rem;
+        width: 5px;
+        height: 9px;
+      }
+    }
+
+    &:hover {
+      & svg {
+        transform: translateX(50%);
+      }
+    }
+  }
+}
