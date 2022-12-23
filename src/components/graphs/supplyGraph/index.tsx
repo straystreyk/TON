@@ -159,6 +159,22 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
             strokeWidth={2}
             curve={curveMonotoneX}
           />
+          <AreaClosed
+            data={correctedData}
+            x={(d) => graphsProps?.xPoint(d)}
+            y={(d) => graphsProps?.yPointCalculate(d)}
+            yScale={graphsProps?.yScaleCalculate}
+            fill="var(--graph-color-3)"
+            curve={curveMonotoneX}
+          />
+          <LinePath
+            data={correctedData}
+            x={(d) => graphsProps?.xPoint(d)}
+            y={(d) => graphsProps?.yPointTotal(d)}
+            stroke="var(--color-1)"
+            strokeWidth={2}
+            curve={curveMonotoneX}
+          />
           {correctedData.map((item, index) => {
             const isCurrentHover = (tooltipData as IAccountData)?.date === item.date
 
@@ -200,23 +216,6 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
               </React.Fragment>
             )
           })}
-          <AreaClosed
-            data={correctedData}
-            x={(d) => graphsProps?.xPoint(d)}
-            y={(d) => graphsProps?.yPointCalculate(d)}
-            yScale={graphsProps?.yScaleCalculate}
-            fill="var(--color-5)"
-            fillOpacity="0.1"
-            curve={curveMonotoneX}
-          />
-          <LinePath
-            data={correctedData}
-            x={(d) => graphsProps?.xPoint(d)}
-            y={(d) => graphsProps?.yPointTotal(d)}
-            stroke="var(--color-1)"
-            strokeWidth={2}
-            curve={curveMonotoneX}
-          />
         </Group>
         <Bar
           x={margin.left}

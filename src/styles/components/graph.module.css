@@ -97,16 +97,16 @@
 }
 
 .accountBarGraph {
-  fill: var(--color-9);
+  fill: var(--graph-color-3);
   transition: var(--transitionDuration) fill var(--transitionFunc),
     var(--transitionDuration) opacity var(--transitionFunc), var(--transitionDuration) all var(--transitionFunc);
 
   &:hover {
-    fill: var(--color-8);
+    fill: var(--graph-color-2);
   }
 
   &.active {
-    fill: var(--color-8);
+    fill: var(--graph-color-2);
   }
 }
 
