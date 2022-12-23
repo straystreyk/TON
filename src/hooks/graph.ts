@@ -9,7 +9,7 @@ import {
 } from '../components/graphs/common'
 import { TNameFilter } from '../helpers/filter'
 import { useGesture } from '@use-gesture/react'
-import { throttleOnPinch, throttleOnWheel } from '../helpers/common'
+import { hideShowScroll, throttleOnPinch, throttleOnWheel } from '../helpers/common'
 
 export const useGraphHeight = () => {
   const isLargestDesktopStart = useMediaQuery({ query: `(min-width: ${MEDIA_CONFIG.desktop.largest}px)` })
@@ -54,8 +54,16 @@ export const useGraphScale = (key: TNameFilter, ref?: React.Ref<any>) => {
         throttleOnPinch(direction[0], key)
         setIsPinching(true)
       },
+      onWheelStart: ({ event }) => {
+        if (event.altKey) {
+          hideShowScroll('hidden')
+        }
+      },
       onWheel: ({ event }) => {
         throttleOnWheel(event as any, key)
+      },
+      onWheelEnd: () => {
+        hideShowScroll('visible')
       },
       onPinchEnd: () => {
         setIsPinching(false)

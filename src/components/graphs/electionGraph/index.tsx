@@ -67,7 +67,10 @@ export const ElectionGraph: React.FC<TGraph> = React.memo(({ width, height, curr
     () => (isMobile ? { max: 20, middle: 10, min: 7 } : { max: 30, middle: 20, min: 10 }),
     [isMobile]
   )
-  const legendWidth = React.useMemo(() => (isMobile ? 0 : radius.max * 2), [isMobile, radius])
+  const legendWidth = React.useMemo(
+    () => (isMobile ? 0 : radius.max * 2 + margin.right * 4),
+    [isMobile, margin.right, radius.max]
+  )
 
   const graphsProps = React.useMemo(() => {
     if (!correctedData || !correctedData.length) return null
@@ -126,7 +129,7 @@ export const ElectionGraph: React.FC<TGraph> = React.memo(({ width, height, curr
     <div ref={ref} className={`${classes.tooltipWrapper} ${classes.electionWrapper}`}>
       <svg width={width} height={height + margin.top}>
         <Group left={margin.left}>
-          <GridRows scale={graphsProps?.yScale} width={graphsProps?.xMax} />
+          <GridRows scale={graphsProps?.yScale} width={width} />
           {correctedData.map((item, index) => {
             const val = nearestValue(graphsProps?.circleStakeArray, +item.stake_sum)
             let r = radius.min

@@ -55,6 +55,16 @@ export const throttle = (fn: Function, wait = 300) => {
   }
 }
 
+function debdounce(func: any, timeout = 300) {
+  let timer: any
+  return (...args: any) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      // @ts-ignore
+      func.apply(this as any, args)
+    }, timeout)
+  }
+}
 function debounce(f: Function, ms = 150) {
   let isCooldown = false
 
@@ -68,13 +78,11 @@ function debounce(f: Function, ms = 150) {
   }
 }
 
-const hideShowScroll = (s: string) => {
+export const hideShowScroll = (s: string) => {
   if (typeof window !== 'undefined' && document.body) {
     document.body.style.overflow = s
   }
 }
-
-const debouncedHideShowScroll: (s: string) => void = debounce(hideShowScroll, 150)
 
 export const plusScaleGraph = (key: TNameFilter, scrolling?: 'top' | 'bottom') => {
   const minusData = filter()[key].difference - filter()[key].scaleStep
@@ -103,9 +111,8 @@ export const minusScaleGraph = (key: TNameFilter, scrolling?: 'top' | 'bottom') 
 }
 
 export const onWheel = (e: React.WheelEvent, key: TNameFilter) => {
-  debouncedHideShowScroll('visible')
+  if (!e.altKey) hideShowScroll('visible')
   if (e.altKey) {
-    hideShowScroll('hidden')
     const y = e.deltaY
     if (y > 0) plusScaleGraph(key)
     if (y < 0) minusScaleGraph(key)
