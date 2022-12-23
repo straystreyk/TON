@@ -126,7 +126,7 @@ export const ElectionGraph: React.FC<TGraph> = React.memo(({ width, height, curr
     return <div style={{ width, height }} />
 
   return (
-    <div ref={ref} className={`${classes.tooltipWrapper} ${classes.electionWrapper}`}>
+    <div tabIndex={-1} ref={ref} className={`${classes.tooltipWrapper} ${classes.electionWrapper}`}>
       <svg width={width} height={height + margin.top}>
         <Group left={margin.left}>
           <GridRows scale={graphsProps?.yScale} width={width} />

@@ -147,7 +147,7 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
     return <div style={{ width, height }} />
 
   return (
-    <div ref={ref} className={classes.tooltipWrapper}>
+    <div tabIndex={-1} ref={ref} className={classes.tooltipWrapper}>
       <svg width={width} height={height + margin.top}>
         <GridRows left={margin.left} width={graphsProps.xMax} scale={graphsProps.yScaleTotal} top={0} />
         <Group left={margin.left} width={width - margin.left - margin.right}>

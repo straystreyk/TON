@@ -116,7 +116,7 @@ const StakingApyGraph: React.FC<TGraph> = React.memo(({ width, height, currentFi
     return <div style={{ width, height }} />
 
   return (
-    <div ref={ref} className={classes.tooltipWrapper}>
+    <div tabIndex={-1} ref={ref} className={classes.tooltipWrapper}>
       <svg width={width} height={height + margin.top}>
         <GridRows left={margin.left} scale={graphsProps.yScale} top={0} width={width - margin.left - margin.right} />
         <Group left={margin.left} width={width} height={height}>

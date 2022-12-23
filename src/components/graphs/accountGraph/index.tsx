@@ -105,7 +105,7 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
 
   return (
     <>
-      <div ref={ref} style={{ touchAction: 'pan-y' }}>
+      <div tabIndex={-1} ref={ref} style={{ touchAction: 'pan-y' }}>
         <svg width={width} height={height + margin.top}>
           <GridRows left={margin.left} scale={graphsProps?.yScale} width={graphsProps?.xMax} />
           <Group left={margin.left}>

@@ -156,7 +156,7 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
     return <div style={{ width, height }} />
 
   return (
-    <div ref={ref} className={classes.tooltipWrapper}>
+    <div tabIndex={-1} ref={ref} className={classes.tooltipWrapper}>
       <svg width={width} height={height + margin.top}>
         <GridRows left={margin.left} scale={graphsProps.yAmountsScale} top={0} width={graphsProps.xMax} />
         <Group left={margin.left}>

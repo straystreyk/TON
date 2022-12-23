@@ -54,19 +54,24 @@ export const useGraphScale = (key: TNameFilter, ref?: React.Ref<any>) => {
         throttleOnPinch(direction[0], key)
         setIsPinching(true)
       },
-      onWheelStart: ({ event }) => {
+      onWheel: ({ event }) => {
+        throttleOnWheel(event as any, key)
+      },
+      onPinchEnd: () => {
+        setIsPinching(false)
+      },
+      onMouseEnter: () => {
+        ;((ref as any).current as HTMLDivElement)?.focus({ preventScroll: true })
+      },
+      onKeyDown: ({ event }) => {
         if (event.altKey) {
           hideShowScroll('hidden')
         }
       },
-      onWheel: ({ event }) => {
-        throttleOnWheel(event as any, key)
-      },
-      onWheelEnd: () => {
-        hideShowScroll('visible')
-      },
-      onPinchEnd: () => {
-        setIsPinching(false)
+      onKeyUp: () => {
+        if (document.body.style.overflow === 'hidden') {
+          hideShowScroll('visible')
+        }
       },
     },
     {

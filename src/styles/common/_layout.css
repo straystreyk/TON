@@ -29,6 +29,13 @@ textarea {
   line-height: 20px;
 }
 
+div,
+div:active,
+div:focus,
+div:hover {
+  outline: none;
+}
+
 button,
 button:hover,
 button:focus,
