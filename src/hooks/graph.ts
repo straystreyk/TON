@@ -50,7 +50,8 @@ export const useGraphScale = (key: TNameFilter, ref?: React.Ref<any>) => {
   const [isPinching, setIsPinching] = React.useState(false)
   useGesture(
     {
-      onPinch: ({ direction }) => {
+      onPinch: ({ event, direction, ctrlKey, metaKey }) => {
+        if (ctrlKey || metaKey || event.metaKey) return
         throttleOnPinch(direction[0], key)
         setIsPinching(true)
       },
@@ -63,9 +64,8 @@ export const useGraphScale = (key: TNameFilter, ref?: React.Ref<any>) => {
       onMouseEnter: () => {
         ;((ref as any).current as HTMLDivElement)?.focus({ preventScroll: true })
       },
-
-      onKeyDown: ({ event }) => {
-        if (event.altKey) {
+      onKeyDown: ({ event, ctrlKey, metaKey }) => {
+        if (ctrlKey || metaKey || event.metaKey) {
           hideShowScroll('hidden')
         }
       },
