@@ -63,15 +63,15 @@ export const useGraphScale = (key: TNameFilter, ref?: React.Ref<any>) => {
       onMouseEnter: () => {
         ;((ref as any).current as HTMLDivElement)?.focus({ preventScroll: true })
       },
+
       onKeyDown: ({ event }) => {
         if (event.altKey) {
           hideShowScroll('hidden')
         }
       },
       onKeyUp: () => {
-        if (document.body.style.overflow === 'hidden') {
-          hideShowScroll('visible')
-        }
+        if (document.body.style.overflow === 'hidden') hideShowScroll('visible')
+        ;((ref as any).current as HTMLDivElement)?.focus({ preventScroll: true })
       },
     },
     {
