@@ -35,6 +35,7 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
   const isMobile = useMediaQuery({ query: `(max-width: ${MEDIA_CONFIG.mobile.big}px)` })
   const ref = React.useRef<HTMLDivElement>(null)
   const margin = React.useMemo(() => (!isMobile ? commonGraphMargin : commonGraphMobileMargin), [isMobile])
+  const isMonth = React.useMemo(() => currentFilter.activeFilter === 'month', [currentFilter])
   useGraphScale('account', ref)
 
   const { correctedData, maxLength } = React.useMemo(() => {
@@ -139,7 +140,9 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
             scale={graphsProps.xScale}
             tickStroke="transparent"
             stroke="transparent"
-            tickFormat={(tick) => moment(new Date(tick)).format('MMM')}
+            tickFormat={(tick) =>
+              isMonth ? moment(new Date(tick)).format('MMM') : moment(new Date(tick)).format('D MMM')
+            }
             tickLabelProps={() => commonTickHorizontalProps}
           />
           <AxisLeft

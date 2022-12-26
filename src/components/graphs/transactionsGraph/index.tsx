@@ -52,6 +52,7 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
   const { hideTooltip, showTooltip, tooltipOpen, tooltipLeft, tooltipTop, tooltipData } = useTooltip()
   const ref = React.useRef<HTMLDivElement>(null)
   const { isPinching } = useGraphScale('transaction', ref)
+  const isMonth = React.useMemo(() => currentFilter.activeFilter === 'month', [currentFilter])
 
   const margin = React.useMemo(() => (!isMobile ? commonGraphMargin : commonGraphMobileMargin), [isMobile])
 
@@ -226,7 +227,9 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
           left={margin.left}
           top={height - margin.top}
           scale={graphsProps.xScale}
-          tickFormat={(tick) => moment(new Date(tick)).format('MMM')}
+          tickFormat={(tick) =>
+            isMonth ? moment(new Date(tick)).format('MMM') : moment(new Date(tick)).format('D MMM')
+          }
           tickStroke="transparent"
           stroke="transparent"
           tickLabelProps={() => commonTickHorizontalProps}
