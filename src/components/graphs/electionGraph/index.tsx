@@ -136,11 +136,11 @@ export const ElectionGraph: React.FC<TGraph> = React.memo(({ width, height, curr
             let opacity = opacityConf.min
             if (val === graphsProps?.maxStake) {
               r = radius.max
-              opacity = opacityConf.middle
+              opacity = opacityConf.max
             }
             if (val === graphsProps?.middleStake) {
               r = radius.middle
-              opacity = opacityConf.max
+              opacity = opacityConf.middle
             }
 
             return (
