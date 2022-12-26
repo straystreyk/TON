@@ -11,8 +11,7 @@ export const groupBy = (arr: [], key: string) => {
   }, {})
 }
 
-export const accountGraphX = (d: IAccountData) => moment(d.date).format('D MMM')
-export const accountGraphXTest = (d: IAccountData) => new Date(d.date)
+export const accountGraphX = (d: IAccountData) => moment(d.date).format('D MMM YYYY')
 export const accountGraphY = (d: IAccountData) => d.total_accounts
 
 /* eslint-disable*/

@@ -43,6 +43,7 @@ import { GraphTitle } from '../graphTitle'
 import { localPoint } from '@visx/event'
 import { Tooltip, useTooltip } from '@visx/tooltip'
 import { useGraphHeight, useGraphScale } from '../../../hooks/graph'
+import moment from 'moment'
 
 export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, currentFilter }) => {
   const transactionAmountsDataInfo = useReactiveVar(transactionAmounts)
@@ -83,7 +84,6 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
       domain: correctedData.map(transactGraphX),
       padding: 0.07,
       paddingOuter: 0,
-      align: 1,
     })
 
     const xScaleLine = scaleUtc({
@@ -226,6 +226,7 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
           left={margin.left}
           top={height - margin.top}
           scale={graphsProps.xScale}
+          tickFormat={(tick) => moment(new Date(tick)).format('MMM')}
           tickStroke="transparent"
           stroke="transparent"
           tickLabelProps={() => commonTickHorizontalProps}
@@ -258,7 +259,7 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
         >
           <div className={`${classes.tooltipDate}`}>{getTooltipDate((tooltipData as IGroupedTransactions).date)}</div>
           <div className={`${classes.tooltipInfo1} ${classes.breakWord}`}>
-            {!isMobile && 'Count:'} {(tooltipData as IGroupedTransactions).transactions_count}
+            {!isMobile && 'Count:'} {(tooltipData as IGroupedTransactions).transactions_count.toFixed(0)}
           </div>
           <div className={`${classes.tooltipInfo2} ${classes.breakWord}`}>
             {!isMobile && 'Sum:'} {(+(tooltipData as IGroupedTransactions).sum_transactions_amounts / 1e9).toFixed(0)}

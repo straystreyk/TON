@@ -22,7 +22,7 @@ export const initialTransactionsBtns = [
   },
 ]
 
-export const transactGraphX = (d: { date: string }) => moment(d.date).format('D MMM')
+export const transactGraphX = (d: { date: string }) => moment(d.date).format('D MMM YYYY')
 export const transactGraphLineX = (d: IGroupedTransactions) => new Date(d.date)
 export const transactGraphAmountsY = (d: IGroupedTransactions) => (+d.sum_transactions_amounts / 1e9).toFixed(0)
 

@@ -27,6 +27,7 @@ import { Bar } from '@visx/shape'
 import { useMediaQuery } from 'react-responsive'
 import { MEDIA_CONFIG } from '../../../helpers/media'
 import { useGraphHeight, useGraphScale } from '../../../hooks/graph'
+import moment from 'moment'
 
 export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, currentFilter }) => {
   const accountDataInfo = useReactiveVar(accountData)
@@ -138,6 +139,7 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
             scale={graphsProps.xScale}
             tickStroke="transparent"
             stroke="transparent"
+            tickFormat={(tick) => moment(new Date(tick)).format('MMM')}
             tickLabelProps={() => commonTickHorizontalProps}
           />
           <AxisLeft
