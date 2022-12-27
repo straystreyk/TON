@@ -36,6 +36,7 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
   const ref = React.useRef<HTMLDivElement>(null)
   const margin = React.useMemo(() => (!isMobile ? commonGraphMargin : commonGraphMobileMargin), [isMobile])
   const isMonth = React.useMemo(() => currentFilter.activeFilter === 'month', [currentFilter])
+  const tooltipRef = React.useRef<HTMLDivElement>(null)
   useGraphScale('account', ref)
 
   const { correctedData, maxLength } = React.useMemo(() => {
@@ -143,7 +144,9 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
             tickFormat={(tick) =>
               isMonth ? moment(new Date(tick)).format('MMM') : moment(new Date(tick)).format('D MMM')
             }
-            tickLabelProps={() => commonTickHorizontalProps}
+            tickLabelProps={() => {
+              return { ...commonTickHorizontalProps, textAnchor: 'middle' }
+            }}
           />
           <AxisLeft
             left={margin.axis}
@@ -157,6 +160,7 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
         </svg>
         {tooltipOpen && (
           <Tooltip
+            ref={tooltipRef}
             unstyled={true}
             className={`${classes.tooltipBase} ${classes.barTooltip}`}
             top={tooltipTop}

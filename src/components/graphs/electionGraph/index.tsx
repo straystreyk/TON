@@ -168,7 +168,9 @@ export const ElectionGraph: React.FC<TGraph> = React.memo(({ width, height, curr
           tickFormat={(v: any) => timeFormat(dateFormat[filter().initiatedSupply.activeFilter])(v)}
           tickStroke="transparent"
           stroke="transparent"
-          tickLabelProps={() => commonTickHorizontalProps}
+          tickLabelProps={() => {
+            return { ...commonTickHorizontalProps, textAnchor: 'middle' }
+          }}
         />
         <AxisLeft
           left={margin.axis}

@@ -12,8 +12,8 @@ import {
   getMinMax,
   getTooltipDate,
   commonGraphMargin,
-  commonTickHorizontalProps,
   commonTickVerticalProps,
+  getTickLabelProps,
 } from '../common'
 import { IYldData, TGraph } from '../../../@types/graph'
 import { ParentSize } from '@visx/responsive'
@@ -40,6 +40,7 @@ const StakingApyGraph: React.FC<TGraph> = React.memo(({ width, height, currentFi
   const ref = React.useRef<HTMLDivElement>(null)
   const { isPinching } = useGraphScale('yld', ref)
   const margin = React.useMemo(() => (!isMobile ? commonGraphMargin : commonGraphMobileMargin), [isMobile])
+  const axisLeftTop = React.useMemo(() => (!isMobile ? 0 : -10), [isMobile])
 
   const { correctedData, maxLength } = React.useMemo(() => {
     if (!yldDataInfo.length) return { correctedData: [], maxLength: 0 }
@@ -54,7 +55,7 @@ const StakingApyGraph: React.FC<TGraph> = React.memo(({ width, height, currentFi
   const graphsProps = React.useMemo(() => {
     if (!correctedData || !correctedData.length) return null
 
-    const xMax = width - margin.left - margin.right
+    const xMax = width - margin.left - margin.right * 2
     const yMax = height - margin.top - margin.bottom
     const [min, max] = getMinMax(correctedData, getYldGraphY)
 
@@ -118,7 +119,12 @@ const StakingApyGraph: React.FC<TGraph> = React.memo(({ width, height, currentFi
   return (
     <div tabIndex={-1} ref={ref} className={classes.tooltipWrapper}>
       <svg width={width} height={height + margin.top}>
-        <GridRows left={margin.left} scale={graphsProps.yScale} top={0} width={width - margin.left - margin.right} />
+        <GridRows
+          left={margin.left}
+          scale={graphsProps.yScale}
+          top={0}
+          width={width - margin.left - margin.right * 2}
+        />
         <Group left={margin.left} width={width} height={height}>
           {correctedData.map((item, index) => {
             const isCurrentHover = (tooltipData as IYldData)?.date === item.date
@@ -187,10 +193,11 @@ const StakingApyGraph: React.FC<TGraph> = React.memo(({ width, height, currentFi
           tickFormat={(v: any) => timeFormat(dateFormat[filter().initiatedSupply.activeFilter])(v)}
           tickStroke="transparent"
           stroke="transparent"
-          tickLabelProps={() => commonTickHorizontalProps}
+          tickLabelProps={() => getTickLabelProps(isMobile)}
         />
         <AxisLeft
           left={margin.axis}
+          top={axisLeftTop}
           scale={graphsProps.yScale}
           tickFormat={(tick) => tick + '%'}
           stroke="transparent"

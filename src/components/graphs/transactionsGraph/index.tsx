@@ -232,7 +232,9 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
           }
           tickStroke="transparent"
           stroke="transparent"
-          tickLabelProps={() => commonTickHorizontalProps}
+          tickLabelProps={() => {
+            return { ...commonTickHorizontalProps, textAnchor: 'middle' }
+          }}
         />
         <AxisLeft
           left={margin.axis}

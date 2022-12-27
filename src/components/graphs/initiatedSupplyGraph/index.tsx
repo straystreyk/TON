@@ -29,8 +29,8 @@ import {
   formatNumbers,
   commonGraphMobileMargin,
   commonGraphMargin,
-  commonTickHorizontalProps,
   commonTickVerticalProps,
+  getTickLabelProps,
 } from '../common'
 import classes from '../../../styles/components/graph.module.css'
 import { curveMonotoneX } from '@visx/curve'
@@ -44,6 +44,7 @@ const InitiatedSupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curr
   const isMobile = useMediaQuery({ query: `(max-width: ${MEDIA_CONFIG.mobile.big}px)` })
   const ref = React.useRef<HTMLDivElement>(null)
   const { isPinching } = useGraphScale('initiatedSupply', ref)
+  const axisLeftTop = React.useMemo(() => (!isMobile ? 0 : -10), [isMobile])
 
   const margin = React.useMemo(() => (!isMobile ? commonGraphMargin : commonGraphMobileMargin), [isMobile])
 
@@ -62,7 +63,7 @@ const InitiatedSupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curr
   const graphsProps = React.useMemo(() => {
     if (!correctedData || !correctedData.length) return null
 
-    const xMax = width - margin.left - margin.right
+    const xMax = width - margin.left - margin.right * 2
     const yMax = height - margin.top - margin.bottom
     const [minYScale, maxYScale] = getMinMax(correctedData, getInitiatedSupplyGraphY)
 
@@ -122,7 +123,12 @@ const InitiatedSupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curr
   return (
     <div tabIndex={-1} ref={ref} className={classes.tooltipWrapper}>
       <svg width={width} height={height + margin.top}>
-        <GridRows left={margin.left} scale={graphsProps.yScale} top={0} width={width - margin.left - margin.right} />
+        <GridRows
+          left={margin.left}
+          scale={graphsProps.yScale}
+          top={0}
+          width={width - margin.left - margin.right * 2}
+        />
         <Group left={margin.left} width={width} height={height}>
           {correctedData.map((item, index) => {
             const isCurrentHover = (tooltipData as IAccountData)?.date === item.date
@@ -191,11 +197,12 @@ const InitiatedSupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curr
           tickFormat={(v: any) => timeFormat(dateFormat[filter().initiatedSupply.activeFilter])(v)}
           tickStroke="transparent"
           stroke="transparent"
-          tickLabelProps={() => commonTickHorizontalProps}
+          tickLabelProps={() => getTickLabelProps(isMobile)}
         />
         <AxisLeft
           left={margin.axis}
           scale={graphsProps.yScale}
+          top={axisLeftTop}
           tickFormat={(tick) => formatNumbers(tick)}
           stroke="transparent"
           numTicks={4}

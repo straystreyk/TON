@@ -33,13 +33,19 @@ export const commonTickVerticalProps: any = (fill?: string) => ({
 
 export const commonTickHorizontalProps: any = {
   fontSize: '0.875rem',
-  textAnchor: 'middle',
+  textAnchor: 'left',
   fill: 'var(--color-5)',
+}
+
+export const getTickLabelProps = (isMobile: boolean) => {
+  let textAnchor = commonTickHorizontalProps.textAnchor
+  if (!isMobile) textAnchor = 'middle'
+  return { ...commonTickHorizontalProps, textAnchor }
 }
 
 export const DEFAULT_NUM_TICKS_LARGEST_DESKTOP = 10
 export const DEFAULT_NUM_TICKS_DESKTOP = 7
-export const DEFAULT_NUM_TICKS_MOBILE = 4
+export const DEFAULT_NUM_TICKS_MOBILE = 5
 
 export const getMinMax = <D>(d: D[], accessor: (d: D) => number) => [
   Math.floor(Math.min(...d.map(accessor))),

@@ -21,7 +21,7 @@ import {
   getTooltipDate,
   commonGraphMargin,
   commonTickVerticalProps,
-  commonTickHorizontalProps,
+  getTickLabelProps,
 } from '../common'
 import { scaleLinear, scaleUtc } from '@visx/scale'
 import { extent } from 'd3-array'
@@ -46,6 +46,7 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
   const isMobile = useMediaQuery({ query: `(max-width: ${MEDIA_CONFIG.mobile.big}px)` })
   const ref = React.useRef(null)
   const { isPinching } = useGraphScale('supply', ref)
+  const axisLeftTop = React.useMemo(() => (!isMobile ? 0 : -10), [isMobile])
 
   const margin = React.useMemo(() => (!isMobile ? commonGraphMargin : commonGraphMobileMargin), [isMobile])
 
@@ -230,6 +231,7 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
         />
         <AxisRight
           left={width - margin.axis}
+          top={axisLeftTop}
           scale={graphsProps.yScaleCalculate}
           tickFormat={(tick) => formatNumbers(tick)}
           stroke="transparent"
@@ -239,6 +241,7 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
         />
         <AxisLeft
           left={margin.axis}
+          top={axisLeftTop}
           scale={graphsProps.yScaleTotal}
           tickFormat={(tick) => formatNumbers(tick)}
           stroke="transparent"
@@ -255,7 +258,7 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
           tickFormat={(v: any) => timeFormat(dateFormat[filter().initiatedSupply.activeFilter])(v)}
           tickStroke="transparent"
           stroke="transparent"
-          tickLabelProps={() => commonTickHorizontalProps}
+          tickLabelProps={() => getTickLabelProps(isMobile)}
         />
       </svg>
       {tooltipData && !isPinching && (
