@@ -120,7 +120,7 @@ export const ElectionGraph: React.FC<TGraph> = React.memo(({ width, height, curr
     if (maxLength && filter().election.maxScale !== maxLength) {
       filter({ ...filter(), election: { ...filter().election, maxScale: maxLength } })
     }
-  }, [maxLength])
+  }, [maxLength, currentFilter])
 
   if (!correctedData.length || !graphsProps || !Object.keys(graphsProps).length)
     return <div style={{ width, height }} />

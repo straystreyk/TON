@@ -132,7 +132,7 @@ export const SupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curren
         supply: { ...filter().supply, maxScale: maxLength },
       })
     }
-  }, [maxLength])
+  }, [maxLength, currentFilter])
 
   // React.useEffect(() => {
   //   if (correctedData.length && filter().supply.currentlyDisplayed.length !== correctedData.length) {

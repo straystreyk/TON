@@ -114,7 +114,7 @@ const InitiatedSupplyGraph: React.FC<TGraph> = React.memo(({ width, height, curr
     if (maxLength && filter().initiatedSupply.maxScale !== maxLength) {
       filter({ ...filter(), initiatedSupply: { ...filter().initiatedSupply, maxScale: maxLength } })
     }
-  }, [maxLength])
+  }, [maxLength, currentFilter])
 
   if (!correctedData.length || !graphsProps || !Object.keys(graphsProps).length)
     return <div style={{ width, height }} />

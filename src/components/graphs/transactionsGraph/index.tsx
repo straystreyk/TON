@@ -151,7 +151,7 @@ export const TransactionsGraph: React.FC<TGraph> = React.memo(({ width, height, 
     if (maxLength && filter().transaction.maxScale !== maxLength) {
       filter({ ...filter(), transaction: { ...filter().transaction, maxScale: maxLength } })
     }
-  }, [maxLength])
+  }, [maxLength, currentFilter])
 
   if (!correctedData.length || !graphsProps || !Object.keys(graphsProps).length)
     return <div style={{ width, height }} />

@@ -110,7 +110,7 @@ const StakingApyGraph: React.FC<TGraph> = React.memo(({ width, height, currentFi
     if (maxLength && filter().yld.maxScale !== maxLength) {
       filter({ ...filter(), yld: { ...filter().yld, maxScale: maxLength } })
     }
-  }, [maxLength])
+  }, [maxLength, currentFilter])
 
   if (!correctedData.length || !graphsProps || !Object.keys(graphsProps).length)
     return <div style={{ width, height }} />

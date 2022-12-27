@@ -100,7 +100,7 @@ export const AccountGraph: React.FC<TGraph> = React.memo(({ width, height, curre
     if (maxLength && filter().account.maxScale !== maxLength) {
       filter({ ...filter(), account: { ...filter().account, maxScale: maxLength } })
     }
-  }, [maxLength])
+  }, [maxLength, currentFilter])
 
   if (!correctedData.length || !graphsProps || !Object.keys(graphsProps).length)
     return <div style={{ width, height }} />
